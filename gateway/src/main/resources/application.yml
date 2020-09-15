@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: api-gateway
+  profiles:
+    active: elapse_route
+server:
+  port: 8081
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://192.168.0.118:8761/eureka/'
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: header_route
+          uri: http://httpbin.org:80/get
+          predicates:
+            - Header=X-Request-Id, \d+
+  profiles: header_route
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: cookie_route
+          uri: http://httpbin.org:80/get
+          predicates:
+            - Cookie=name, forezp
+  profiles: cookie_route
+
+---
+    spring:
+      cloud:
+        gateway:
+          routes:
+            - id: host_route
+              uri: http://httpbin.org:80/get
+              predicates:
+                - Host=**.mystical.com
+      profiles: host_route
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: elapse_route
+          uri: http://httpbin.org:80/get
+          filters:
+            - RequestTime=false
+          predicates:
+            - After=2020-08-20T17:42:47.789-07:00[America/Denver]
+  profiles: elapse_route
