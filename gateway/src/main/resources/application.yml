@@ -2,13 +2,19 @@ spring:
   application:
     name: api-gateway
   profiles:
-    active: elapse_route
+    active: limit_route
 server:
   port: 8081
 eureka:
   client:
     service-url:
       defaultZone: 'http://192.168.0.118:8761/eureka/'
+      cloud:
+        gateway:
+          discovery:
+            locator:
+              enabled: true
+              lowerCaseServiceId: true
 
 ---
 spring:
@@ -55,3 +61,24 @@ spring:
           predicates:
             - After=2020-08-20T17:42:47.789-07:00[America/Denver]
   profiles: elapse_route
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: limit_route
+          uri: http://httpbin.org:80/get
+          predicates:
+            - After=2020-08-20T17:42:47.789-07:00[America/Denver]
+          filters:
+            - name: RequestRateLimiter
+              args:
+                key-resolver: "#{@hostAddrKeyResolver}"
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 3
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+  profiles: limit_route

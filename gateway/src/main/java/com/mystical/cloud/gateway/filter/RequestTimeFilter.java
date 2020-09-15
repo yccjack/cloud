@@ -1,5 +1,6 @@
 package com.mystical.cloud.gateway.filter;
 
+import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -10,8 +11,9 @@ import reactor.core.publisher.Mono;
 
 /**
  * @author MysticalYcc
+ * 过滤时间
  */
-@Log4j2
+@Log
 @Repository
 public class RequestTimeFilter implements GatewayFilter, Ordered {
 
