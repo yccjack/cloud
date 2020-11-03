@@ -1,0 +1,12 @@
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      zone1: 'http://gschaos.club:8761/eureka/'
+server:
+  port: 8761
+spring:
+  application:
+    name: 'mystical-eureka'
