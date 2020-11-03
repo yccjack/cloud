@@ -1,6 +1,6 @@
 package com.mystical.cloud.entrance.base;
 
-import com.infinity.wealth.core.process.chop.bean.BaseDto;
+import com.mystical.cloud.entrance.bean.BaseDto;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
