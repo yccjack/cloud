@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author MysticalYcc
  */
 @RestController
-@RequestMapping("chop")
+@RequestMapping("demo")
 public class DemoController extends AbstractDispatch<String, BaseDto> {
 
 
