@@ -1,4 +1,4 @@
-package com.mystical.cloud.entrance.bean;
+package com.mystical.cloud.entrance.bean.response;
 
 import com.alibaba.fastjson.JSON;
 

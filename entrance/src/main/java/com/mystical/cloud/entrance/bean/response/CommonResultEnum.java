@@ -1,4 +1,4 @@
-package com.mystical.cloud.entrance.bean;
+package com.mystical.cloud.entrance.bean.response;
 
 public enum CommonResultEnum implements ICommonEnum {
     SUCCESS("200", "成功"),

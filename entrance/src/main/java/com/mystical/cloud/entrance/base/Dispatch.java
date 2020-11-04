@@ -1,7 +1,7 @@
 package com.mystical.cloud.entrance.base;
 
 
-import com.mystical.cloud.entrance.bean.CommonResponse;
+import com.mystical.cloud.entrance.bean.response.CommonResponse;
 
 /**
  * @author MysticalYcc
