@@ -91,3 +91,9 @@ event事件为页面操作事件，比如提交事件，则event=submit，保存
 
 ### 总结
 以某种类型的请求和此种类型需要操作的方式以及发生的事件为走向 实现的通用接口。
+请求地址示例： 
+```html
+post:  
+http://localhost:8081/entrance/demo/lu/create/     
+{"event":"submit","data":{"data":"1234"}}
+```

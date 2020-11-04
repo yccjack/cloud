@@ -21,7 +21,7 @@ public class TokenFilter implements GlobalFilter, Ordered
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        String token = exchange.getRequest().getQueryParams().getFirst("testToken");
+        String token=   exchange.getRequest().getHeaders().getFirst("testToken");
 
         if (token == null || token.isEmpty()) {
             log.info( "token is empty..." );
