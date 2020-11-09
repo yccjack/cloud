@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: auth-service
+  profiles:
+    active: default
+server:
+  port: 8987
+---
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://gschaos.club:8761/eureka/'
+spring:
+  profiles: default
+
+---
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://localhost:8761/eureka/'
+spring:
+  profiles: localhost
