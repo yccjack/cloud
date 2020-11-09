@@ -1,4 +1,4 @@
-package com.mystical.cloud.auth.security;
+package com.mystical.cloud.auth.bean;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

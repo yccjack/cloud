@@ -13,7 +13,7 @@ spring:
           destination: greetings
           contentType: application/json
   application:
-    name: api-gateway
+    name: mystical-stream
   profiles:
     active: eureka
 server:

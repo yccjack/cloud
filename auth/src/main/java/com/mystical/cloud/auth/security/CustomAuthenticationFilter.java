@@ -1,5 +1,6 @@
 package com.mystical.cloud.auth.security;
 
+import com.mystical.cloud.auth.bean.SelfUserDetails;
 import com.mystical.cloud.auth.utils.JsonUtils;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -9,8 +9,10 @@ eureka:
   client:
     service-url:
       defaultZone: 'http://gschaos.club:8761/eureka/'
-
-
+logging:
+  level:
+    root:
+      info
 
 ---
 spring:
@@ -82,6 +84,11 @@ spring:
 ---
 spring:
   cloud:
+    discovery:
+      enable: true
+    loadbalancer:
+      retry:
+        enabled: true
     gateway:
       discovery:
         locator:
@@ -92,6 +99,22 @@ spring:
           uri: lb://entrance-service
           predicates:
             - Path= /entrance/**
+            - Method=POST
+          filters:
+            - StripPrefix=1
+            - AddResponseHeader=X-Response-Default-Foo, fws-form-service-Bar
+        - id: mystical-stream
+          uri: lb://mystical-stream
+          predicates:
+            - Path= /stream/**
+            - Method=POST
+          filters:
+            - StripPrefix=1
+            - AddResponseHeader=X-Response-Default-Foo, fws-form-service-Bar
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path= /auth/**
             - Method=POST
           filters:
             - StripPrefix=1

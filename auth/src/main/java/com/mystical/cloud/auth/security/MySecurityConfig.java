@@ -1,6 +1,7 @@
 package com.mystical.cloud.auth.security;
 
 import com.mystical.cloud.auth.security.handler.*;
+import com.mystical.cloud.auth.service.SelfUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

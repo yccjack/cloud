@@ -2,7 +2,7 @@ package com.mystical.cloud.auth.security.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.mystical.cloud.auth.bean.AjaxResponseBody;
-import com.mystical.cloud.auth.security.SelfUserDetails;
+import com.mystical.cloud.auth.bean.SelfUserDetails;
 import com.mystical.cloud.auth.utils.JwtTokenUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
