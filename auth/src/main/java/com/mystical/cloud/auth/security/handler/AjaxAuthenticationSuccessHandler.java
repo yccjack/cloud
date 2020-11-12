@@ -17,7 +17,6 @@ import java.io.IOException;
 @Component
 public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         AjaxResponseBody responseBody = new AjaxResponseBody();
 

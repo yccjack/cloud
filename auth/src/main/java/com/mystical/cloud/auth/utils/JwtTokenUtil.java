@@ -29,7 +29,10 @@ public class JwtTokenUtil {
     }
 
     public static void main(String[] args) {
-        new JwtTokenUtil();
+        JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
+        String s = jwtTokenUtil.parseToken("eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ5Y2MiLCJleHAiOjE2MDUxNjUwODJ9.sD361WMLZ-BRAaKqnUzARvb4HE-F-_fr-nwDFLew9hlfn55FHYUP07VYOVUJBIQvzDO90zxODlTrwUKJ1dTL8FDSxHoCRb3D44ofMVvKRHShxVLUggHnTQ7Lub0hKb5e9d-l9Am74FvTRQsK8Na24vwGfdN6lgkcgjb-R9a1vdE");
+        System.out.println(s);
+
     }
     /**
      *

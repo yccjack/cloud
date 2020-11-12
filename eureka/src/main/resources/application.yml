@@ -1,12 +1,16 @@
-
-eureka:
-  client:
-    register-with-eureka: false
-    fetch-registry: false
-    serviceUrl:
-      zone1: 'http://gschaos.club:8761/eureka/'
 server:
   port: 8761
+
+eureka:
+  instance:
+    hostname: gschaos.club
+  server:
+    enable-self-preservation: false
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 spring:
-  application:
-    name: 'mystical-eureka'
+   application:
+     name: eurka-server

@@ -1,5 +1,7 @@
 package com.mystical.cloud.auth.security;
 
+import org.apache.commons.lang.StringUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,6 +24,9 @@ public class GetRequestJsonUtils {
                 sb.append(line);
             }
             jsonString = URLDecoder.decode(sb.toString(), "UTF-8");
+            if(StringUtils.isEmpty(jsonString)){
+                return null;
+            }
             jsonString = jsonString.substring(jsonString.indexOf("{"));
         } catch (IOException e) {
             e.printStackTrace();

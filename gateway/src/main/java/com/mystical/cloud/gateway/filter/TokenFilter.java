@@ -9,6 +9,7 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -18,10 +19,10 @@ import reactor.core.publisher.Mono;
  * 过滤token
  */
 @Log
-@Repository
+@Component
 public class TokenFilter implements GlobalFilter, Ordered {
 
-    @Autowired(required = false)
+    @Autowired
     AuthService authService;
 
     @Override
@@ -38,6 +39,9 @@ public class TokenFilter implements GlobalFilter, Ordered {
             return exchange.getResponse().setComplete();
         } else {
             log.info("authenticate token start...");
+            if(token.contains("Bearer")){
+                token = token.substring(token.indexOf("Bearer ")+7);
+            }
             CommonResponse<String> authInfo = authService.getAuthInfo(token);
             if (!"200".equals(authInfo.getCode())) {
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);

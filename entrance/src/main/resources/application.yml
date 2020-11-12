@@ -3,7 +3,8 @@ spring:
     name: entrance-service
   profiles:
     active: default
-
+server:
+  port: 8789
 ---
 eureka:
   client:

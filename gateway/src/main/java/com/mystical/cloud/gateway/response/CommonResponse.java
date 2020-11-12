@@ -1,8 +1,9 @@
 package com.mystical.cloud.gateway.response;
 
 
+import java.io.Serializable;
 
-public class CommonResponse<T> extends BasePojo {
+public class CommonResponse<T> extends BasePojo implements Serializable {
     private String code;
     private String msg;
     private T data;

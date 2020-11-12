@@ -54,13 +54,14 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // 所有请求必须认证
                 .authorizeRequests()
+                .antMatchers("/auth/*").permitAll()
                 .anyRequest()
                 // 认证的逻辑
                 .access("@rbacauthorityservice.hasPermission(request,authentication)") // RBAC 动态 url 认证
                 .and()
                 //开启登录
                 .formLogin()
-                .loginPage("/")
+                .loginPage("/login")
                 .successHandler(authenticationSuccessHandler) // 登录成功
                 .failureHandler(authenticationFailureHandler) // 登录失败
                 .permitAll()
@@ -88,7 +89,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         CustomAuthenticationFilter filter = new CustomAuthenticationFilter();
         filter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
         filter.setAuthenticationFailureHandler(authenticationFailureHandler);
-        filter.setFilterProcessesUrl("/login/self"); // 设置登陆接口名
+        filter.setFilterProcessesUrl("/login/"); // 设置登陆接口名
 
         //这句很关键，重用WebSecurityConfigurerAdapter配置的AuthenticationManager，不然要自己组装AuthenticationManager
         filter.setAuthenticationManager(authenticationManagerBean());
