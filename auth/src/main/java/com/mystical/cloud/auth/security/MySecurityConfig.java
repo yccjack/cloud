@@ -5,6 +5,7 @@ import com.mystical.cloud.auth.service.SelfUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -54,7 +55,20 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // 所有请求必须认证
                 .authorizeRequests()
+                // 对于获取token的rest api要允许匿名访问
                 .antMatchers("/auth/*").permitAll()
+                // 允许对于网站静态资源的无授权访问
+                .antMatchers(
+                        HttpMethod.GET,
+                        "/",
+                        "/*.html",
+                        "/favicon.ico",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js",
+                        "/**/*.jpg",
+                        "/**/*.png"
+                ).permitAll()
                 .anyRequest()
                 // 认证的逻辑
                 .access("@rbacauthorityservice.hasPermission(request,authentication)") // RBAC 动态 url 认证
