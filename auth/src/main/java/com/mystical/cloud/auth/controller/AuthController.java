@@ -4,13 +4,14 @@ import com.mystical.cloud.auth.response.CommonResponse;
 import com.mystical.cloud.auth.response.CommonResultEnum;
 import com.mystical.cloud.auth.utils.JwtTokenUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("auth")
 public class AuthController {
 
-    @RequestMapping("/info")
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
     public CommonResponse<String> auth(String token){
         System.out.println(token);
         String s = JwtTokenUtil.parseToken(token);
