@@ -4,9 +4,24 @@ spring:
   profiles:
     active: eureka
 server:
-  port: 8777
+  port: 8003
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+---
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://gschaos.club:8761/eureka/'
+spring:
+  profiles: default
+
+---
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://localhost:8761/eureka/'
+spring:
+  profiles: localhost
