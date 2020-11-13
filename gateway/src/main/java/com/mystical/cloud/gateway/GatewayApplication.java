@@ -33,14 +33,5 @@ public class GatewayApplication {
     }
 
 }
-@Component
- class WxMappingJackson2HttpMessageConverter extends MappingJackson2HttpMessageConverter {
-    public WxMappingJackson2HttpMessageConverter(){
-        List<MediaType> mediaTypes = new ArrayList<>();
-        mediaTypes.add(MediaType.TEXT_PLAIN);
-        mediaTypes.add(MediaType.TEXT_HTML);
-        mediaTypes.add(MediaType.APPLICATION_OCTET_STREAM);
-        setSupportedMediaTypes(mediaTypes);
-    }
-}
+
 

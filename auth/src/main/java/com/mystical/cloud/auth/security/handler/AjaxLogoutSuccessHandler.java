@@ -19,7 +19,7 @@ public class AjaxLogoutSuccessHandler implements LogoutSuccessHandler {
         AjaxResponseBody responseBody = new AjaxResponseBody();
 
         responseBody.setStatus("100");
-        responseBody.setMsg("登陆成功");
+        responseBody.setMsg("注销成功");
         httpServletResponse.setCharacterEncoding("utf-8");
         httpServletResponse.getWriter().write(JSON.toJSONString(responseBody));
     }

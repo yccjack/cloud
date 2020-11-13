@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: schain-service
+  profiles:
+    active: eureka
+server:
+  port: 8777
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

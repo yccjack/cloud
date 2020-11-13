@@ -5,6 +5,11 @@ spring:
     active: default
 server:
   port: 8987
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 ---
 eureka:
   client:

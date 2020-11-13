@@ -1,32 +1,24 @@
 spring:
   application:
-    name: entrance-service
+    name: admin-service
   profiles:
     active: default
 server:
-  port: 8789
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+  port: 8000
 ---
 eureka:
   client:
     service-url:
       defaultZone: 'http://gschaos.club:8761/eureka/'
+    register-with-eureka: false
 spring:
   profiles: default
 
 ---
 eureka:
   client:
+    register-with-eureka: false
     service-url:
       defaultZone: 'http://localhost:8761/eureka/'
 spring:
   profiles: localhost
-
-
-
-
-

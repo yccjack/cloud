@@ -34,6 +34,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                             "", "");
                 }else {
                     SelfUserDetails selfUserDetails = JsonUtils.jsonToPojo(jsonString,SelfUserDetails.class);
+                    assert selfUserDetails != null;
                     authRequest = new UsernamePasswordAuthenticationToken(
                             selfUserDetails.getUsername(), selfUserDetails.getPassword());
                 }
