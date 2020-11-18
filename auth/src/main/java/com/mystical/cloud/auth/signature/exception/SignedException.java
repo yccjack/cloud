@@ -14,7 +14,7 @@ public class SignedException {
     }
 
     public static class ReplayAttack extends BaseException {
-        public ReplayAttack(String arg0, long arg1, int arg2) {
+        public ReplayAttack(String arg0, long arg1, Object arg2) {
             super("appId: " + arg0 + ", timestamp: " + arg1 + ", nonce: " + arg2);
         }
     }

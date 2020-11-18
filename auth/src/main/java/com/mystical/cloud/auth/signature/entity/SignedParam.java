@@ -13,6 +13,7 @@ import lombok.ToString;
 public class SignedParam {
     @SignedAppId
     private String appId;
+    @SignedIgnore
     private String data;
     @SignedTimestamp
     private long timestamp;
