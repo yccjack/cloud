@@ -15,4 +15,5 @@ import java.lang.annotation.*;
 @Inherited
 public @interface SignedMapping {
     Class<?> value() default BaseSignedService.class;
+    boolean resubmit() default false;//允许重复请求
 }

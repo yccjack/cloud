@@ -51,7 +51,7 @@ public class BaseSignedService {
     protected RedisUtil redisUtil;
     protected static final String PREFIX = "atpapi:signature:";
 
-    @Pointcut("@within(com.cu.acttemplate.apigate.common.signature.annotation.SignedMapping) || @annotation(com.cu.acttemplate.apigate.common.signature.annotation.SignedMapping) ")
+    @Pointcut("@within(com.mystical.cloud.auth.signature.annotation.SignedMapping) || @annotation(com.mystical.cloud.auth.signature.annotation.SignedMapping) ")
     public void mapping() {
     }
 
@@ -65,6 +65,10 @@ public class BaseSignedService {
         SignedMapping signedMapping = AnnotationUtils.findAnnotation(method, SignedMapping.class);
         if (signedMapping == null) {
             signedMapping = AnnotationUtils.findAnnotation(joinPoint.getTarget().getClass(), SignedMapping.class);
+        }
+
+        if(signedMapping.resubmit()){
+            return;
         }
         Class clazz = signedMapping.value();
 
