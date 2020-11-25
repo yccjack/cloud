@@ -57,6 +57,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 对于获取token的rest api要允许匿名访问
                 .antMatchers("/auth/*").permitAll()
+                .antMatchers("/signature/*").permitAll()
                 // 允许对于网站静态资源的无授权访问
                 .antMatchers(
                         HttpMethod.GET,

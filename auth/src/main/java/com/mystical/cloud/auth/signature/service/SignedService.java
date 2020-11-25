@@ -26,9 +26,6 @@ public abstract class SignedService {
     protected String ALGORITHM;
     @Value("${signature.time-diff-max:100}")
     protected long TIME_DIFF_MAX;
-
-    @Value("${share.key}")
-    protected String shareKey;
     @Autowired(required = false)
     protected RedisUtil redisUtil;
     protected static final String PREFIX = "atpapi:signature:";
