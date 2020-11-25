@@ -33,7 +33,7 @@ public abstract class SignedService {
     protected RedisUtil redisUtil;
     protected static final String PREFIX = "atpapi:signature:";
 
-    @Pointcut("@within(com.cu.acttemplate.apigate.common.signature.annotation.SignedMapping) || @annotation(com.cu.acttemplate.apigate.common.signature.annotation.SignedMapping) ")
+    @Pointcut("@within(com.mystical.cloud.auth.signature.annotation.SignedMapping) || @annotation(com.mystical.cloud.auth.signature.annotation.SignedMapping) ")
     public void mapping() {
     }
 
