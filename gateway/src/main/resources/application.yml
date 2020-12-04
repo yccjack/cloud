@@ -4,7 +4,7 @@ spring:
   profiles:
     active: eureka
 server:
-  port: 10000
+  port: 11000
 eureka:
   client:
     service-url:

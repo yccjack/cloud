@@ -2,8 +2,13 @@ package com.mystical.cloud.auth.security.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.mystical.cloud.auth.bean.AjaxResponseBody;
+import com.mystical.cloud.auth.bean.LoginView;
 import com.mystical.cloud.auth.bean.SelfUserDetails;
+import com.mystical.cloud.auth.mapper.LoginMapper;
+import com.mystical.cloud.auth.mapper.UserMapper;
+import com.mystical.cloud.auth.service.LoginService;
 import com.mystical.cloud.auth.utils.JwtTokenUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -17,6 +22,9 @@ import java.io.IOException;
 @Component
 public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
+    @Autowired
+    LoginService loginService;
+
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         AjaxResponseBody responseBody = new AjaxResponseBody();
 
@@ -25,8 +33,13 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
 
         SelfUserDetails selfUserDetails = (SelfUserDetails) authentication.getPrincipal();
 
-// 创建 token ，并返回 ，设置过期时间为 300 秒
-        String jwtToken = JwtTokenUtil.generateToken(selfUserDetails.getUsername(), 300);
+// 创建 token ，并返回 ，设置过期时间为 300000 秒
+        String jwtToken = JwtTokenUtil.generateToken(selfUserDetails.getUsername(),30000);
+        LoginView loginView = new LoginView();
+        loginView.setUsername(selfUserDetails.getUsername());
+        loginView.setStatus(1);
+        loginView.setToken(jwtToken);
+        loginService.saveOrUpdate(loginView);
         responseBody.setJwtToken(jwtToken);
         response.setCharacterEncoding("utf-8");
         response.getWriter().write(JSON.toJSONString(responseBody));

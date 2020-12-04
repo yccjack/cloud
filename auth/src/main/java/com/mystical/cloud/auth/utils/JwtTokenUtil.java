@@ -54,6 +54,23 @@ public class JwtTokenUtil {
 
     /**
      *
+     * 使用私钥加密 token
+     *
+     * @param:
+     * @return:
+     * @auther: Tangzhiqiang
+     * @date: 2019/1/13 20:43
+     */
+    public static String generateToken(String subject) {
+        return Jwts.builder()
+                .setClaims(null)
+                .setSubject(subject)
+                .signWith(SignatureAlgorithm.RS256, privateKey)
+                .compact();
+    }
+
+    /**
+     *
      * 不使用公钥私钥 加密token
      *
      * @param:

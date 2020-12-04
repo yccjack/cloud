@@ -1,6 +1,9 @@
 package com.mystical.cloud.auth.security;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.mystical.cloud.auth.bean.LoginView;
+import com.mystical.cloud.auth.service.LoginService;
 import com.mystical.cloud.auth.service.SelfUserDetailsService;
 import com.mystical.cloud.auth.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     SelfUserDetailsService userDetailsService;
+    @Autowired
+    LoginService loginService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
@@ -32,8 +37,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             final String authToken = authHeader.substring("Bearer ".length());
 
             String username = JwtTokenUtil.parseToken(authToken);
-
-            if (username != null) {
+            QueryWrapper<LoginView> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("username", username).eq("status", 1);
+            int count = loginService.count(queryWrapper);
+            if (username != null && count > 0) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
                 if (userDetails != null) {
