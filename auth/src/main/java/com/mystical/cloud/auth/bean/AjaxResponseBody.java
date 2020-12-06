@@ -10,4 +10,5 @@ public class AjaxResponseBody implements Serializable {
     private String msg;
     private Object result;
     private String jwtToken;
+    private String index;
 }

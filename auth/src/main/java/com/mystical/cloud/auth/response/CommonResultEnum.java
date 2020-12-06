@@ -6,7 +6,9 @@ public enum CommonResultEnum implements ICommonEnum {
     FAILED_MISSING_PARAMS("40001", "失败，参数缺失"),
     FAILED_INSUFFICIENT_AUTHORITY("40002", "失败，权限不足"),
     FAILED_404("40004", "失败,资源丢失"),
-    SYSTEM_FAIL("99999", "系统错误");
+    SYSTEM_FAIL("99999", "系统错误"),
+    REGISTER_ERROR("10086", "请检查用户名是否合规"),
+    REGISTER_REPEAT("10087", "用户名重复");
 
     private String code;
     private String msg;
