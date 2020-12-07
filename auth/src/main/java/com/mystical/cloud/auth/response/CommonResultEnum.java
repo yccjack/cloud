@@ -9,7 +9,8 @@ public enum CommonResultEnum implements ICommonEnum {
     SYSTEM_FAIL("99999", "系统错误"),
     REGISTER_ERROR("10086", "请检查用户名是否合规"),
     REGISTER_REPEAT("10087", "用户名重复"),
-    REGISTER_TOKEN_MISS("20001", "TOKEN缺失");
+    USER_TOKEN_MISS("20001", "TOKEN缺失"),
+    USER_INFO_MISS("20002", "用户不存在");
 
     private String code;
     private String msg;
