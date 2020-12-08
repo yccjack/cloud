@@ -36,7 +36,7 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
 // 创建 token ，并返回 ，设置过期时间为 300000 秒
         String jwtToken = loginService.getRegisterToken(selfUserDetails.getUsername(),1);
         responseBody.setJwtToken(jwtToken);
-        responseBody.setIndex("http://localhost:63342/station/main.html");
+        responseBody.setIndex("index.html");
         response.setCharacterEncoding("utf-8");
         response.getWriter().write(JSON.toJSONString(responseBody));
     }
