@@ -39,6 +39,8 @@ public class AjaxLogoutSuccessHandler implements LogoutSuccessHandler {
         responseBody.setStatus("100");
         responseBody.setMsg("注销成功");
         httpServletResponse.setCharacterEncoding("utf-8");
+//        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+//        httpServletResponse.setHeader("Cache-Control","no-cache");
         httpServletResponse.getWriter().write(JSON.toJSONString(responseBody));
     }
 }

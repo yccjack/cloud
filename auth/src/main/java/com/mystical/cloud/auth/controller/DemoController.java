@@ -4,12 +4,13 @@ package com.mystical.cloud.auth.controller;
 import com.alibaba.fastjson.JSON;
 import com.mystical.cloud.auth.bean.SelfUserDetails;
 import com.mystical.cloud.auth.signature.entity.SignedParam;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("users")
 public class DemoController {
 
     @RequestMapping("/info")

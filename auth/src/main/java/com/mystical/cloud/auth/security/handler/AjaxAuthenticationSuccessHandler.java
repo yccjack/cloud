@@ -38,6 +38,8 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
         responseBody.setJwtToken(jwtToken);
         responseBody.setIndex("index.html");
         response.setCharacterEncoding("utf-8");
+//        response.setHeader("Access-Control-Allow-Origin", "*");
+//        response.setHeader("Cache-Control","no-cache");
         response.getWriter().write(JSON.toJSONString(responseBody));
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.core.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
 
 /**
  * 自定义 json 登录
@@ -21,11 +22,14 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         //attempt Authentication when Content-Type is json
-        if(request.getContentType()==null){
+        Enumeration<String> headerNames = request.getHeaderNames();
+        String header = request.getHeader("access-control-request-headers");
+
+        if(request.getContentType()==null&&header==null){
             return null;
         }
-        if (request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)
-                || request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)) {
+        if ((MediaType.APPLICATION_JSON_VALUE).equalsIgnoreCase(request.getContentType())
+                || request.getContentType().contains(MediaType.APPLICATION_FORM_URLENCODED_VALUE)) {
 
 
 

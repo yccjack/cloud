@@ -21,6 +21,8 @@ public class AjaxAuthenticationFailureHandler implements AuthenticationFailureHa
         responseBody.setStatus("400");
         responseBody.setMsg("登陆失败");
         httpServletResponse.setCharacterEncoding("utf-8");
+//        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+//        httpServletResponse.setHeader("Cache-Control","no-cache");
         httpServletResponse.getWriter().write(JSON.toJSONString(responseBody));
     }
 

@@ -22,6 +22,8 @@ public class AjaxAccessDeniedHandler implements AccessDeniedHandler {
         responseBody.setStatus("300");
         responseBody.setMsg("需要权限!");
         httpServletResponse.setCharacterEncoding("utf-8");
+//        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+//        httpServletResponse.setHeader("Cache-Control","no-cache");
         httpServletResponse.getWriter().write(JSON.toJSONString(responseBody));
     }
 }

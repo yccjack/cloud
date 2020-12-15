@@ -38,7 +38,7 @@ public class AuthController {
 
     }
 
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public CommonResponse<Integer> login(@RequestBody UserInfo userInfo) {
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", userInfo.getUsername()).eq("password", userInfo.getPassword());

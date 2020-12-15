@@ -1,38 +1,38 @@
 package com.mystical.cloud.auth.signature.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 @Component
 public class RedisUtil {
 
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+    private Map<String, String> cache = new ConcurrentHashMap<>(1024);
 
 
     public void remove(String key) {
         if (exists(key)) {
-            stringRedisTemplate.delete(key);
+            cache.remove(key);
         }
     }
 
     public boolean exists(String key) {
-        return stringRedisTemplate.hasKey(key);
+        return cache.get(key) == null;
     }
 
     public String get(String key) {
-        return stringRedisTemplate.opsForValue().get(key);
+        return cache.get(key);
     }
 
 
     public void set(String key, String value) {
-        stringRedisTemplate.opsForValue().set(key, value);
+        cache.put(key, value);
     }
 
     public void set(String key, String value, Long expire) {
-        stringRedisTemplate.opsForValue().set(key, value, expire, TimeUnit.SECONDS);
+        cache.put(key, value);
     }
 }

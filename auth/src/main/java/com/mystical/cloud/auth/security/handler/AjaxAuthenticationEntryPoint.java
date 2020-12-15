@@ -21,6 +21,8 @@ public class AjaxAuthenticationEntryPoint implements AuthenticationEntryPoint {
         responseBody.setStatus("000");
         responseBody.setMsg("未登录!");
         httpServletResponse.setCharacterEncoding("utf-8");
+//        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+//        httpServletResponse.setHeader("Cache-Control","no-cache");
         httpServletResponse.getWriter().write(JSON.toJSONString(responseBody));
     }
 }
