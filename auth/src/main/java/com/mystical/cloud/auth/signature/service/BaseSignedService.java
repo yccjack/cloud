@@ -1,7 +1,5 @@
 package com.mystical.cloud.auth.signature.service;
 
-import com.alibaba.fastjson.JSONObject;
-
 import com.mystical.cloud.auth.signature.annotation.Signature;
 import com.mystical.cloud.auth.signature.annotation.SignedAppId;
 import com.mystical.cloud.auth.signature.annotation.SignedNonce;
