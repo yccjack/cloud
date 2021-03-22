@@ -14,7 +14,7 @@ management:
 eureka:
   client:
     service-url:
-      defaultZone: 'http://gschaos.club:8761/eureka/'
+      defaultZone: 'http://localhost:8761/eureka/'
 spring:
   profiles: default
 

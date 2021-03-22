@@ -3,7 +3,7 @@ server:
 
 eureka:
   instance:
-    hostname: gschaos.club
+    hostname: localhost
   server:
     enable-self-preservation: false
   client:

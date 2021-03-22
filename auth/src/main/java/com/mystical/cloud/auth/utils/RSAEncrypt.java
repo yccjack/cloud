@@ -105,25 +105,6 @@ public class RSAEncrypt {
         return keyMap;
     }
 
-    public static void main(String[] args) {
-        //字符串
-        String str = "欢子";
-        try {
-            System.out.println("私钥：" + com.cu.common.RSAEncrypt.rsaPriKey);
-            System.out.println("公钥：" + com.cu.common.RSAEncrypt.rsaPubKey);
-
-            //公钥加密
-            byte[] ciphertext = com.cu.common.RSAEncrypt.encryptByPublicKey(str.getBytes(), com.cu.common.RSAEncrypt.rsaPubKey);
-            //私钥解密
-            byte[] plaintext = com.cu.common.RSAEncrypt.decryptByPrivateKey(ciphertext, com.cu.common.RSAEncrypt.rsaPriKey);
-
-            System.out.println("公钥加密前：" + str);
-            System.out.println("公钥加密后：" + Base64.encodeBase64String(ciphertext));
-            System.out.println("私钥解密后：" + new String(plaintext));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * 私钥解密
