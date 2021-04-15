@@ -32,7 +32,9 @@ public class HashGenerator extends AbstractGenerator {
     }
 
     private GeneratorUrl doShorten(GeneratorUrl urlObject) {
+        String lUrl = urlObject.getLUrl();
         getShortId(urlObject);
+        urlObject.setLUrl(lUrl);
         //查询是否存在同样的shortId
         boolean has = shortIdFilter.filter(urlObject.getGeneratorId());
         if (has) {

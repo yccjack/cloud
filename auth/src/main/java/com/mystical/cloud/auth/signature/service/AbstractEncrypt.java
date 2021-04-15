@@ -1,7 +1,6 @@
 package com.mystical.cloud.auth.signature.service;
 
 
-import com.mystical.cloud.auth.response.CommonResponse;
 import com.mystical.cloud.auth.signature.annotation.EncryptEntity;
 import com.mystical.cloud.auth.signature.annotation.EncryptFiled;
 import com.mystical.cloud.auth.signature.annotation.EncryptMapper;
@@ -81,7 +80,7 @@ public abstract class AbstractEncrypt {
             }
 
         }
-        CommonResponse apiResult = getApiResult(joinPoint, args, returnSecret);
+        Object apiResult = getApiResult(joinPoint, args, returnSecret);
         threadPwd.remove();
         return apiResult;
     }
@@ -181,23 +180,17 @@ public abstract class AbstractEncrypt {
      * @return
      * @throws Exception
      */
-    private CommonResponse getApiResult(ProceedingJoinPoint joinPoint, Object[] args, boolean returnSecret) throws Exception {
+    private Object getApiResult(ProceedingJoinPoint joinPoint, Object[] args, boolean returnSecret) throws Exception {
         Object result = null;
         try {
             result = joinPoint.proceed(args);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-        CommonResponse apiResult =new CommonResponse();
-        if (result != null) {
-            if (result instanceof CommonResponse) {
-                apiResult = (CommonResponse) result;
-                if (returnSecret) {
-                    disReturnData(apiResult);
-                }
-            }
+        if (returnSecret) {
+            disReturnData(result);
         }
-        return apiResult;
+        return result;
     }
 
     /**
@@ -206,7 +199,7 @@ public abstract class AbstractEncrypt {
      * @param apiResult
      * @throws Exception
      */
-    protected abstract void disReturnData(CommonResponse apiResult) throws Exception;
+    protected abstract String disReturnData(Object apiResult) throws Exception;
 
 
     /**

@@ -23,6 +23,8 @@ oever:
 redis:
   host: localhost
   port: 6379
+cookie:
+  domain: localhost
 
 ---
 spring:

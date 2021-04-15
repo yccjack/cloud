@@ -1,12 +1,13 @@
 package com.mystical.cloud.auth.controller;
 
-import com.mystical.cloud.auth.response.CommonResponse;
-import com.mystical.cloud.auth.response.CommonResultEnum;
+
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author ycc
@@ -19,8 +20,8 @@ public class IndexController {
 
     @PostMapping("/")
     @CrossOrigin
-    public CommonResponse<Object> index(HttpServletResponse response) {
+    public String index(HttpServletResponse response) {
         log.info("注册成功，跳转主页");
-        return new CommonResponse<>(CommonResultEnum.SUCCESS, "http://localhost:63342/station/index.html");
+        return "http://localhost:63342/station/index.html";
     }
 }

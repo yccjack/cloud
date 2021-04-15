@@ -2,17 +2,14 @@ package com.mystical.cloud.auth.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mystical.cloud.auth.bean.UserInfo;
-import com.mystical.cloud.auth.response.CommonResponse;
-import com.mystical.cloud.auth.response.CommonResultEnum;
+import com.mystical.cloud.auth.exception.EventBaseException;
 import com.mystical.cloud.auth.service.UserService;
 import com.mystical.cloud.auth.utils.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -28,7 +25,7 @@ public class UserInfoController {
     @Autowired
     UserService userService;
     @PostMapping("/info")
-    public CommonResponse<Object> userInfo(HttpServletRequest request) {
+    public Object userInfo(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
@@ -38,13 +35,12 @@ public class UserInfoController {
             queryWrapper.eq("username",userName);
             UserInfo one = userService.getOne(queryWrapper);
             if(one!=null){
-                return new CommonResponse<>(CommonResultEnum.SUCCESS,one);
+                return one;
             }else {
-                return new CommonResponse<>(CommonResultEnum.USER_INFO_MISS);
+               throw new EventBaseException("未知账户");
             }
-
         }else {
-            return new CommonResponse<>(CommonResultEnum.USER_TOKEN_MISS);
+            throw new EventBaseException("错误的token");
         }
     }
 }

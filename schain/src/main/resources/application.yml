@@ -16,7 +16,9 @@ eureka:
     service-url:
       defaultZone: 'http://localhost:8761/eureka/'
 spring:
-  profiles: default
+  config:
+    activate:
+      on-profile: default
 
 ---
 eureka:
@@ -24,4 +26,6 @@ eureka:
     service-url:
       defaultZone: 'http://localhost:8761/eureka/'
 spring:
-  profiles: localhost
+  config:
+    activate:
+      on-profile: localhost

@@ -3,9 +3,9 @@ package com.mystical.cloud.auth.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mysql.cj.util.StringUtils;
 import com.mystical.cloud.auth.bean.UserInfo;
+import com.mystical.cloud.auth.exception.EventBaseException;
 import com.mystical.cloud.auth.mapper.UserMapper;
-import com.mystical.cloud.auth.response.CommonResponse;
-import com.mystical.cloud.auth.response.CommonResultEnum;
+
 import com.mystical.cloud.auth.service.LoginService;
 import com.mystical.cloud.auth.utils.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -26,56 +26,60 @@ public class AuthController {
     LoginService loginService;
 
     /**
-     * 简单验证数据是否正确，可以忽略。
+     * 验证token
+     *
      * @param token
      * @return
      */
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-    public CommonResponse<String> auth(String token) {
+    public String auth(String token) {
         log.debug("token:[{}]", token);
         String useranme = JwtTokenUtil.parseToken(token);
-        if ("ycc".equals(useranme)) {
-            return new CommonResponse<>(CommonResultEnum.SUCCESS);
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", useranme);
+        UserInfo userInfo = userMapper.selectOne(queryWrapper);
+        if (userInfo != null) {
+            return "success";
         }
-        return new CommonResponse<>(CommonResultEnum.FAILED_INSUFFICIENT_AUTHORITY);
+        return "未知账户";
 
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public CommonResponse<Integer> login(@RequestBody UserInfo userInfo, HttpServletResponse response) {
+    public String login(@RequestBody UserInfo userInfo, HttpServletResponse response) {
         if (loginService.login(userInfo, response)) {
-            return new CommonResponse<>(CommonResultEnum.SUCCESS);
+            return "登录成功";
         }
-        return null;
+        return "登录失败";
     }
 
     @PostMapping("/register")
-    public CommonResponse<Object> register(@RequestBody UserInfo userInfo, HttpServletResponse response) {
+    public String register(@RequestBody UserInfo userInfo, HttpServletResponse response) {
         try {
             String username = userInfo.getUsername();
             String password = userInfo.getPassword();
             log.info("username=[{}], password=:[{}]", username, password);
             boolean succeed;
             if (StringUtils.isNullOrEmpty(username) || username.length() > 32 || StringUtils.isNullOrEmpty(password)) {
-                return new CommonResponse<>(CommonResultEnum.REGISTER_ERROR);
+                return "填写错误";
             } else {
                 QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
                 queryWrapper.eq("username", username).eq("password", password);
                 Integer integer = userMapper.selectCount(queryWrapper);
                 if (integer > 0) {
-                    return new CommonResponse<>(CommonResultEnum.REGISTER_ERROR);
+                    return "账户已存在";
                 } else {
                     succeed = loginService.saveAndValidate(userInfo);
                 }
             }
             if (succeed) {
                 String token = loginService.getRegisterToken(username, 0, response);
-                return new CommonResponse<>(CommonResultEnum.SUCCESS, token);
+                return token;
             } else {
-                return new CommonResponse<>(CommonResultEnum.SYSTEM_FAIL);
+                return "生成token失败，请重试";
             }
         } catch (Exception e) {
-            return new CommonResponse<>(CommonResultEnum.SYSTEM_FAIL);
+           throw new EventBaseException("内部错误");
         }
     }
 }

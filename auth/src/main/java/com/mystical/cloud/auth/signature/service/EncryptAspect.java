@@ -1,7 +1,6 @@
 package com.mystical.cloud.auth.signature.service;
 
 import com.alibaba.fastjson.JSON;
-import com.mystical.cloud.auth.response.CommonResponse;
 import com.mystical.cloud.auth.utils.EncryptUtil;
 import com.mystical.cloud.auth.utils.RSAEncrypt;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +23,7 @@ import java.security.InvalidKeyException;
 @Component
 @Primary
 @Slf4j
-public class EncryptAspect extends AbstractEncrypt{
+public class EncryptAspect extends AbstractEncrypt {
 
     /**
      * Get the field value of obj through annotation
@@ -53,11 +52,12 @@ public class EncryptAspect extends AbstractEncrypt{
      * @param apiResult
      * @throws Exception
      */
-    public void disReturnData(CommonResponse apiResult) throws Exception {
-        Object data = apiResult.getData();
-        String secretResultData = EncryptUtil.encrypt(JSON.toJSONString(data), threadPwd.get());
-        apiResult.setData(secretResultData);
+    @Override
+    public String disReturnData(Object apiResult) throws Exception {
+
+        return EncryptUtil.encrypt(JSON.toJSONString(apiResult), threadPwd.get());
     }
+
     /**
      * 解密算法
      *

@@ -4,6 +4,9 @@ import com.mystical.cloud.schain.generator.GeneratorUrl;
 import com.mystical.cloud.schain.generator.ShortIdFilter;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author MysticalYcc
+ */
 @Service
 public class ShortUrlService implements ShortIdFilter {
     @Override

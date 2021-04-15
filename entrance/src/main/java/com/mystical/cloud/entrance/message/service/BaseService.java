@@ -1,8 +1,6 @@
 package com.mystical.cloud.entrance.message.service;
 
 
-import com.mystical.cloud.entrance.bean.response.CommonResponse;
-
 /**
  * @author MysticalYcc
  */
@@ -13,5 +11,5 @@ public interface BaseService<T> {
      * @param obj 参数
      * @return CommonResponse
      */
-      CommonResponse<Boolean> dispatch(T obj);
+    Boolean dispatch(T obj);
 }

@@ -1,16 +1,14 @@
 package com.mystical.cloud.gateway.filter;
 
-import com.mystical.cloud.gateway.response.CommonResponse;
+import com.mystical.cloud.gateway.response.ResultBody;
 import com.mystical.cloud.gateway.service.AuthService;
 import lombok.extern.java.Log;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -40,10 +38,10 @@ public class TokenFilter implements GlobalFilter, Ordered {
             return exchange.getResponse().setComplete();
         } else {
             log.info("authenticate token start...");
-            if(token.contains("Bearer")){
-                token = token.substring(token.indexOf("Bearer ")+7);
+            if (token.contains("Bearer")) {
+                token = token.substring(token.indexOf("Bearer ") + 7);
             }
-            CommonResponse<String> authInfo = authService.getAuthInfo(token);
+            ResultBody authInfo = authService.getAuthInfo(token);
             if (!"200".equals(authInfo.getCode())) {
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                 return exchange.getResponse().setComplete();

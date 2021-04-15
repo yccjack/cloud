@@ -1,6 +1,5 @@
 package com.mystical.cloud.entrance.message.controller;
 
-import com.mystical.cloud.entrance.bean.response.CommonResponse;
 import com.mystical.cloud.entrance.message.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +21,7 @@ public class EmailSendController {
             value = "/send",
             method = RequestMethod.POST
     )
-    public CommonResponse<Boolean> sendEmail(@RequestBody String json) {
+    public Boolean sendEmail(@RequestBody String json) {
 
         return emailSendService.dispatch(json);
     }

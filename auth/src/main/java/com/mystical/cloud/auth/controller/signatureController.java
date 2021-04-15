@@ -1,7 +1,6 @@
 package com.mystical.cloud.auth.controller;
 
-import com.mystical.cloud.auth.response.CommonResponse;
-import com.mystical.cloud.auth.response.CommonResultEnum;
+
 import com.mystical.cloud.auth.signature.annotation.SignedMapping;
 import com.mystical.cloud.auth.signature.entity.SignedParam;
 import com.mystical.cloud.auth.signature.service.BaseSignedService;
@@ -51,24 +50,23 @@ public class signatureController {
 
     @PostMapping("param")
     @SignedMapping
-    public CommonResponse<String> testHasSignatureParam(@RequestBody(required = false) SignedParam signedParam) {
-        String data = signedParam.getData();
+    public String testHasSignatureParam(@RequestBody(required = false) SignedParam signedParam) {
 
-        return new CommonResponse<>(CommonResultEnum.SUCCESS, data);
+        return signedParam.getData();
     }
 
     @GetMapping("head")
     @SignedMapping
-    public CommonResponse<String> testHasSignatureHead(@RequestBody(required = false) String data) {
+    public String testHasSignatureHead(@RequestBody(required = false) String data) {
 
-        return new CommonResponse<>(CommonResultEnum.SUCCESS, data);
+        return data;
     }
 
     @GetMapping("resubmit")
     @SignedMapping(resubmit = true)
-    public CommonResponse<String> testResubmit(@RequestBody(required = false) String data) {
+    public String testResubmit(@RequestBody(required = false) String data) {
 
-        return new CommonResponse<>(CommonResultEnum.SUCCESS, data);
+        return data;
     }
 
 }

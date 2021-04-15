@@ -4,8 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.mystical.cloud.entrance.base.AbstractDispatch;
 import com.mystical.cloud.entrance.base.BaseService;
 import com.mystical.cloud.entrance.bean.BaseDto;
-import com.mystical.cloud.entrance.bean.response.CommonResponse;
-import com.mystical.cloud.entrance.bean.response.CommonResultEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,13 +26,13 @@ public class DemoController extends AbstractDispatch<String, BaseDto> {
 
     @Override
     @RequestMapping("/{source}/{operation}")
-    public CommonResponse<String> dispatch(@PathVariable("source") String source, @PathVariable("operation") String operation, @RequestBody String json) {
+    public String dispatch(@PathVariable("source") String source, @PathVariable("operation") String operation, @RequestBody String json) {
         String dispose;
         BaseDto baseDto = JSON.parseObject(json, BaseDto.class);
         baseDto.setOperation(operation);
         BaseService<BaseDto> baseDtoBaseService = getSource(source);
         dispose = baseDtoBaseService.dispose(baseDto);
-        return new CommonResponse<>(CommonResultEnum.SUCCESS, dispose);
+        return dispose;
     }
 
     @Override

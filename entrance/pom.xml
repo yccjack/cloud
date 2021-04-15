@@ -7,7 +7,6 @@
         <artifactId>root</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.mystical.cloud</groupId>
     <artifactId>entrance</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>entrance</name>
