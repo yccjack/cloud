@@ -119,7 +119,7 @@ spring:
         - id: auth-service
           uri: lb://auth-service
           predicates:
-            - Path= /auth/**
+            - Path= /sso/**
             - Method=POST
           filters:
             - StripPrefix=1

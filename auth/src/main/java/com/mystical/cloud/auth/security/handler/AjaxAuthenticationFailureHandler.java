@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// 登录失败
+/**
+ * //  登录失败返回的 JSON 格式数据给前端（否则为 html）
+ */
 @Component
 public class AjaxAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
+    @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         AjaxResponseBody responseBody = new AjaxResponseBody();
 

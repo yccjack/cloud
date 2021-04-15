@@ -2,7 +2,6 @@ package com.mystical.cloud.auth.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mysql.cj.util.StringUtils;
-import com.mystical.cloud.auth.bean.SelfUserDetails;
 import com.mystical.cloud.auth.bean.UserInfo;
 import com.mystical.cloud.auth.mapper.UserMapper;
 import com.mystical.cloud.auth.response.CommonResponse;
@@ -26,12 +25,16 @@ public class AuthController {
     @Autowired
     LoginService loginService;
 
+    /**
+     * 简单验证数据是否正确，可以忽略。
+     * @param token
+     * @return
+     */
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public CommonResponse<String> auth(String token) {
-        System.out.println(token);
-        String s = JwtTokenUtil.parseToken(token);
-        System.out.println(s);
-        if ("ycc".equals(s)) {
+        log.debug("token:[{}]", token);
+        String useranme = JwtTokenUtil.parseToken(token);
+        if ("ycc".equals(useranme)) {
             return new CommonResponse<>(CommonResultEnum.SUCCESS);
         }
         return new CommonResponse<>(CommonResultEnum.FAILED_INSUFFICIENT_AUTHORITY);
@@ -39,11 +42,8 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public CommonResponse<Integer> login(@RequestBody UserInfo userInfo) {
-        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username", userInfo.getUsername()).eq("password", userInfo.getPassword());
-        Integer integer = userMapper.selectCount(queryWrapper);
-        if (integer == 1) {
+    public CommonResponse<Integer> login(@RequestBody UserInfo userInfo, HttpServletResponse response) {
+        if (loginService.login(userInfo, response)) {
             return new CommonResponse<>(CommonResultEnum.SUCCESS);
         }
         return null;
@@ -54,7 +54,7 @@ public class AuthController {
         try {
             String username = userInfo.getUsername();
             String password = userInfo.getPassword();
-            log.info("username=[{}], password=:[{}]",username,password);
+            log.info("username=[{}], password=:[{}]", username, password);
             boolean succeed;
             if (StringUtils.isNullOrEmpty(username) || username.length() > 32 || StringUtils.isNullOrEmpty(password)) {
                 return new CommonResponse<>(CommonResultEnum.REGISTER_ERROR);
@@ -69,9 +69,8 @@ public class AuthController {
                 }
             }
             if (succeed) {
-                String token = loginService.getRegisterToken(username,0);
-               // response.sendRedirect("http://localhost:63342/station/login.html");
-                return new CommonResponse<>(CommonResultEnum.SUCCESS,token);
+                String token = loginService.getRegisterToken(username, 0, response);
+                return new CommonResponse<>(CommonResultEnum.SUCCESS, token);
             } else {
                 return new CommonResponse<>(CommonResultEnum.SYSTEM_FAIL);
             }

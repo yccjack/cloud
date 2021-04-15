@@ -6,6 +6,7 @@ public abstract class BasePojo implements IPojo {
     public BasePojo() {
     }
 
+    @Override
     public String toJsonString() {
         return JSON.toJSONString(this);
     }

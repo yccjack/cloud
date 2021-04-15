@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// 登出成功
+/**
+ * // 注销成功返回的 JSON 格式数据给前端（否则为 登录时的 html）
+ */
 @Component
 public class AjaxLogoutSuccessHandler implements LogoutSuccessHandler {
     @Autowired

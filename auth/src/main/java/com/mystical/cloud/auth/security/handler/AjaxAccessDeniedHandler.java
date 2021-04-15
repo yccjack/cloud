@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// 没有权限处理类
+/**
+ *  // 无权访问返回的 JSON 格式数据给前端（否则为 403 html 页面）
+ */
 @Component
 public class AjaxAccessDeniedHandler implements AccessDeniedHandler {
 

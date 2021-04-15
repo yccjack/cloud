@@ -49,6 +49,7 @@ public class CommonResponse<T> extends BasePojo {
         this.data = data;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
@@ -102,6 +103,7 @@ public class CommonResponse<T> extends BasePojo {
         return other instanceof CommonResponse;
     }
 
+    @Override
     public int hashCode() {
         boolean PRIME = true;
         int result = 1;
@@ -114,6 +116,7 @@ public class CommonResponse<T> extends BasePojo {
         return result;
     }
 
+    @Override
     public String toString() {
         return "CommonResponse(code=" + this.getCode() + ", msg=" + this.getMsg() + ", data=" + this.getData() + ")";
     }

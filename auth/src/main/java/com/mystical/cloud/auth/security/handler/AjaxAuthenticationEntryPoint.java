@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// 未登陆时
+/**
+ * 未登陆时返回 JSON 格式的数据给前端（否则为 html）
+ */
 @Component
 public class AjaxAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

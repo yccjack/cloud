@@ -11,17 +11,22 @@ import java.security.PublicKey;
 import java.util.Date;
 
 public class JwtTokenUtil {
-
-    private static InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("jwt.jks"); // 寻找证书文件
+    /**
+     * 寻找证书文件
+     */
+    private static InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("jwt.jks");
     private static PrivateKey privateKey = null;
     private static PublicKey publicKey = null;
 
-    static { // 将证书文件里边的私钥公钥拿出来
+    static {
+        // 将证书文件里边的私钥公钥拿出来
         try {
             inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("jwt.jks");
-            KeyStore keyStore = KeyStore.getInstance("JKS"); // java key store 固定常量
+            // java key store 固定常量
+            KeyStore keyStore = KeyStore.getInstance("JKS");
             keyStore.load(inputStream, "123456".toCharArray());
-            privateKey = (PrivateKey) keyStore.getKey("jwt", "123456".toCharArray()); // jwt 为 命令生成整数文件时的别名
+            // jwt 为 命令生成整数文件时的别名
+            privateKey = (PrivateKey) keyStore.getKey("jwt", "123456".toCharArray());
             publicKey = keyStore.getCertificate("jwt").getPublicKey();
         } catch (Exception e) {
             e.printStackTrace();
@@ -37,11 +42,7 @@ public class JwtTokenUtil {
     /**
      *
      * 使用私钥加密 token
-     *
-     * @param:
-     * @return:
-     * @auther: Tangzhiqiang
-     * @date: 2019/1/13 20:43
+
      */
     public static String generateToken(String subject, int expirationSeconds) {
         return Jwts.builder()
@@ -57,9 +58,6 @@ public class JwtTokenUtil {
      * 使用私钥加密 token
      *
      * @param:
-     * @return:
-     * @auther: Tangzhiqiang
-     * @date: 2019/1/13 20:43
      */
     public static String generateToken(String subject) {
         return Jwts.builder()
@@ -72,29 +70,20 @@ public class JwtTokenUtil {
     /**
      *
      * 不使用公钥私钥 加密token
-     *
-     * @param:
-     * @return:
-     * @auther: Tangzhiqiang
-     * @date: 2019/1/13 20:41
      */
     public static String generateToken(String subject, int expirationSeconds, String salt) {
         return Jwts.builder()
                 .setClaims(null)
                 .setSubject(subject)
                 .setExpiration(new Date(System.currentTimeMillis() + expirationSeconds * 1000))
-                .signWith(SignatureAlgorithm.HS512, salt) // 不使用公钥私钥
+                // 不使用公钥私钥
+                .signWith(SignatureAlgorithm.HS512, salt)
                 .compact();
     }
 
     /**
      *
      * 通过 公钥解密token
-     *
-     * @param:
-     * @return:
-     * @auther: Tangzhiqiang
-     * @date: 2019/1/13 20:40
      */
     public static String parseToken(String token) {
         String subject = null;
@@ -111,17 +100,13 @@ public class JwtTokenUtil {
     /**
      *
      * 不嘛通过 公钥解密token
-     *
-     * @param:
-     * @return:
-     * @auther: Tangzhiqiang
-     * @date: 2019/1/13 20:40
      */
     public static String parseToken(String token,String salt) {
         String subject = null;
         try {
             Claims claims = Jwts.parser()
-                    .setSigningKey(salt) // 不使用公钥私钥
+                    // 不使用公钥私钥
+                    .setSigningKey(salt)
                     .parseClaimsJws(token).getBody();
             subject = claims.getSubject();
         } catch (Exception e) {

@@ -28,6 +28,7 @@ public class TokenFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String url1 = exchange.getRequest().getURI().toString();
+        //放行特定的请求地址
         if (url1.indexOf("/uploadFile") > 0 || url1.indexOf("/upload") > 0 || url1.indexOf("/download") > 0 || url1.indexOf("/login") > 0 || url1.indexOf("/auth") > 0) {
             return chain.filter(exchange);
         }

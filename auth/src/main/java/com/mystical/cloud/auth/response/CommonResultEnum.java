@@ -1,5 +1,6 @@
 package com.mystical.cloud.auth.response;
 
+@SuppressWarnings("all")
 public enum CommonResultEnum implements ICommonEnum {
     SUCCESS("200", "成功"),
     FAILED("40000", "失败"),

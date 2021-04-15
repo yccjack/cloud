@@ -18,13 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// 登陆成功
+/**
+ * // 登录成功返回的 JSON 格式数据给前端（否则为 html）
+ */
 @Component
 public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Autowired
     LoginService loginService;
 
+    @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         AjaxResponseBody responseBody = new AjaxResponseBody();
 
@@ -34,7 +37,7 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
         SelfUserDetails selfUserDetails = (SelfUserDetails) authentication.getPrincipal();
 
 // 创建 token ，并返回 ，设置过期时间为 300000 秒
-        String jwtToken = loginService.getRegisterToken(selfUserDetails.getUsername(),1);
+        String jwtToken = loginService.getRegisterToken(selfUserDetails.getUsername(),1,response);
         responseBody.setJwtToken(jwtToken);
         responseBody.setIndex("index.html");
         response.setCharacterEncoding("utf-8");

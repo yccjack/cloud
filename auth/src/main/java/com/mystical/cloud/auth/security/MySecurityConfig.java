@@ -16,25 +16,25 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    AjaxAuthenticationEntryPoint authenticationEntryPoint;  //  未登陆时返回 JSON 格式的数据给前端（否则为 html）
+    AjaxAuthenticationEntryPoint authenticationEntryPoint;
 
     @Autowired
-    AjaxAuthenticationSuccessHandler authenticationSuccessHandler;  // 登录成功返回的 JSON 格式数据给前端（否则为 html）
+    AjaxAuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Autowired
-    AjaxAuthenticationFailureHandler authenticationFailureHandler;  //  登录失败返回的 JSON 格式数据给前端（否则为 html）
+    AjaxAuthenticationFailureHandler authenticationFailureHandler;
 
     @Autowired
-    AjaxLogoutSuccessHandler logoutSuccessHandler;  // 注销成功返回的 JSON 格式数据给前端（否则为 登录时的 html）
+    AjaxLogoutSuccessHandler logoutSuccessHandler;
 
     @Autowired
-    AjaxAccessDeniedHandler accessDeniedHandler;    // 无权访问返回的 JSON 格式数据给前端（否则为 403 html 页面）
+    AjaxAccessDeniedHandler accessDeniedHandler;
 
     @Autowired
-    SelfUserDetailsService userDetailsService; // 自定义user
+    SelfUserDetailsService userDetailsService;
 
     @Autowired
-    JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter; // JWT 拦截器
+    JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -46,7 +46,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // 去掉 CSRF（跨域）
         http.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 使用 JWT，关闭session
+                // 使用 JWT，关闭session
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
 
                 //  未登陆时返回 JSON
@@ -72,13 +73,16 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 .anyRequest()
                 // 认证的逻辑
-                .access("@rbacauthorityservice.hasPermission(request,authentication)") // RBAC 动态 url 认证
+                // RBAC 动态 url 认证
+                .access("@rbacauthorityservice.hasPermission(request,authentication)")
                 .and()
                 //开启登录
                 .formLogin()
                 .loginPage("/login")
-                .successHandler(authenticationSuccessHandler) // 登录成功
-                .failureHandler(authenticationFailureHandler) // 登录失败
+                // 登录成功
+                .successHandler(authenticationSuccessHandler)
+                // 登录失败
+                .failureHandler(authenticationFailureHandler)
                 .permitAll()
                 .and()
                 // 登出
@@ -89,22 +93,29 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         // 记住我
         http.rememberMe().rememberMeParameter("remember-me")
                 .userDetailsService(userDetailsService).tokenValiditySeconds(300);
-
-        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler); // 无权访问 JSON 格式的数据
+// 无权访问 JSON 格式的数据
+        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
         //用重写的Filter替换掉原有的UsernamePasswordAuthenticationFilter实现使用json 数据也可以登陆
         http.addFilterAt(customAuthenticationFilter(),
                 UsernamePasswordAuthenticationFilter.class);
 // 设置执行其他工作前的 filter （最重要的验证 JWT）
-        http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class); // JWT Filter
+        // JWT Filter
+        http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
-    //注册自定义的UsernamePasswordAuthenticationFilter
+    /**
+     * //注册自定义的UsernamePasswordAuthenticationFilter
+     *
+     * @return
+     * @throws Exception
+     */
     @Bean
     CustomAuthenticationFilter customAuthenticationFilter() throws Exception {
         CustomAuthenticationFilter filter = new CustomAuthenticationFilter();
         filter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
         filter.setAuthenticationFailureHandler(authenticationFailureHandler);
-        filter.setFilterProcessesUrl("/login"); // 设置登陆接口名
+        // 设置登陆接口名
+        filter.setFilterProcessesUrl("/login");
 
         //这句很关键，重用WebSecurityConfigurerAdapter配置的AuthenticationManager，不然要自己组装AuthenticationManager
         filter.setAuthenticationManager(authenticationManagerBean());
