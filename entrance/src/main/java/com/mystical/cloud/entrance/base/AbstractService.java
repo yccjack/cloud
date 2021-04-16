@@ -20,6 +20,9 @@ public abstract class AbstractService implements BaseService<BaseDto> {
 
     protected String strategy = "ABS_BUS";
 
+    /**
+     * 注册表
+     */
     protected static Map<String, BaseService<BaseDto>> strategyMap = new HashMap<>();
 
     public AbstractService(String strategy) {
@@ -41,7 +44,7 @@ public abstract class AbstractService implements BaseService<BaseDto> {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
             Throwable cause = e.getCause();
-            //这里获取反射调用方法抛出的自定义异常
+            //获取反射调用方法抛出的自定义异常
             if (cause instanceof EventBaseException) {
                 EventBaseException ex = (EventBaseException) cause;
                 throw new EventBaseException(ex.getErrorCode(), ex.getMessage());
@@ -54,7 +57,7 @@ public abstract class AbstractService implements BaseService<BaseDto> {
         String event = baseDto.getEvent();
         String data = baseDto.getData();
         Object object = null;
-        //这里获取需要执行的创建事件。
+        //获取需要执行的创建事件。
         object = getObject(data, event);
         return (String) object;
     }
@@ -71,6 +74,11 @@ public abstract class AbstractService implements BaseService<BaseDto> {
         return invoke;
     }
 
+    /**
+     * 将实现类注册到注册表中，如果存在则忽略，即无法覆盖已有注册类。
+     *
+     * @param strategy
+     */
     protected void addBean(String strategy) {
         strategyMap.putIfAbsent(strategy, this);
     }

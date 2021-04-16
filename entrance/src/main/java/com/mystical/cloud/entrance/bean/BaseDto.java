@@ -13,7 +13,7 @@ import lombok.ToString;
 public class BaseDto {
     private String source;
 
-    private String operation;
+    public String operation;
 
     private String event;
 
