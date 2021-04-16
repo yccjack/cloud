@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 @Service("authorization")
 @Slf4j
 public class AuthorizationService extends AbstractService {
+    private final static String strategy = "au";
+
+    public AuthorizationService() {
+        super(strategy);
+    }
 
     public String submit(String data) {
         //处理数据

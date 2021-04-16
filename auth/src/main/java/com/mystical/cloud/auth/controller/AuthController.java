@@ -32,16 +32,16 @@ public class AuthController {
      * @return
      */
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-    public String auth(String token) {
+    public boolean auth(String token) {
         log.debug("token:[{}]", token);
         String useranme = JwtTokenUtil.parseToken(token);
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", useranme);
         UserInfo userInfo = userMapper.selectOne(queryWrapper);
         if (userInfo != null) {
-            return "success";
+            return true;
         }
-        return "未知账户";
+        return false;
 
     }
 

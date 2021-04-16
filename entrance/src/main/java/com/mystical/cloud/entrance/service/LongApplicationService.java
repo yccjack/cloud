@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 @Service("longApplication")
 @Slf4j
 public class LongApplicationService extends AbstractService {
+    private final static String STRATEGY = "la";
+
+    public LongApplicationService() {
+        super(STRATEGY);
+    }
 
     public String submit(String data) {
         log.info("待处理的数据:[{}]", data);

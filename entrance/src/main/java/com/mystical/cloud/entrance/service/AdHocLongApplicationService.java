@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class AdHocLongApplicationService extends AbstractService {
 
+    private final static String strategy = "ad";
+
+    public AdHocLongApplicationService() {
+        super(strategy);
+    }
 
 
     public String submit(String data) {
