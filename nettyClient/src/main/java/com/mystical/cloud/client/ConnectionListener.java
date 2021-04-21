@@ -19,12 +19,9 @@ public class ConnectionListener implements ChannelFutureListener {
     public void operationComplete(ChannelFuture channelFuture) throws Exception {
         if (!channelFuture.isSuccess()) {
             final EventLoop loop = channelFuture.channel().eventLoop();
-            loop.schedule(new Runnable() {
-                @Override
-                public void run() {
-                    System.err.println("服务端链接不上，开始重连操作...");
-                    imConnection.start();
-                }
+            loop.schedule(() -> {
+                System.err.println("服务端链接不上，开始重连操作...");
+                imConnection.start();
             }, 1L, TimeUnit.SECONDS);
         } else {
             System.err.println("服务端链接成功...");

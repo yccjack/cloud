@@ -80,12 +80,7 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<String> {
         System.err.println("掉线了...");
         //使用过程中断线重连
         final EventLoop eventLoop = ctx.channel().eventLoop();
-        eventLoop.schedule(new Runnable() {
-            @Override
-            public void run() {
-                imConnection.start();
-            }
-        }, 1L, TimeUnit.SECONDS);
+        eventLoop.schedule(() -> imConnection.start(), 1L, TimeUnit.SECONDS);
         super.channelInactive(ctx);
 
     }
