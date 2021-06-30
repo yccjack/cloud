@@ -2,13 +2,13 @@ spring:
   application:
     name: auth-service
   profiles:
-    active: localhost
+    active: default
   datasource:
     initialization-mode: always
     driverClassName: 'com.mysql.cj.jdbc.Driver'
     url: jdbc:mysql://localhost:3306/mystical?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: gudanboke
+    password: '123456'
 server:
   port: 8001
 management:
@@ -27,6 +27,10 @@ cookie:
   domain: localhost
 
 ---
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://121.4.31.143:8761/eureka/'
 spring:
   profiles: default
 

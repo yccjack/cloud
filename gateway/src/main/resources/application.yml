@@ -5,10 +5,7 @@ spring:
     active: eureka
 server:
   port: 11000
-eureka:
-  client:
-    service-url:
-      defaultZone: 'http://localhost:8761/eureka/'
+
 logging:
   level:
     root:
@@ -87,6 +84,10 @@ spring:
   profiles: limit_route
 
 ---
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://121.4.31.143:8761/eureka/'
 spring:
   cloud:
     discovery:

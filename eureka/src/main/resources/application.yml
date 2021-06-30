@@ -3,7 +3,7 @@ server:
 
 eureka:
   instance:
-    hostname: localhost
+    hostname: 121.4.31.143
   server:
     enable-self-preservation: false
   client:
