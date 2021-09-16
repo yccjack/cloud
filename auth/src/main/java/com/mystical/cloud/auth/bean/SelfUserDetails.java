@@ -11,6 +11,7 @@ public class SelfUserDetails implements UserDetails {
     private String username;
     private String password;
     private List<GrantedAuthority> authorities;
+    @Override
     public String getUsername() {
         return username;
     }

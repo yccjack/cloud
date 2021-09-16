@@ -40,6 +40,7 @@ public class BaseSignedService extends SignedService {
      * @throws NoSuchAlgorithmException NoSuchAlgorithmException {@link NoSuchAlgorithmException }
      * @throws InvalidKeyException      InvalidKeyException {@link InvalidKeyException}
      */
+    @Override
     protected void signedValidate() throws NoSuchAlgorithmException, InvalidKeyException {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String appId = request.getHeader("aptapi-appid");
@@ -70,6 +71,7 @@ public class BaseSignedService extends SignedService {
      * @param obj
      * @throws Exception
      */
+    @Override
     public void entry(Object obj) throws Exception {
 
         Map map = object2Map(obj);

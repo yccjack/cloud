@@ -175,10 +175,11 @@ public abstract class SignedService {
     public void isReplayAttack(String appId, long timestamp, Object nonce, String signature) {
         String key = PREFIX + appId + "_" + timestamp + "_" + nonce;
         Object obj = redisUtil.get(key);
-        if (obj != null && signature.equals(obj.toString()))
+        if (obj != null && signature.equals(obj.toString())) {
             throw new SignedException.ReplayAttack(appId, timestamp, nonce);
-        else
+        } else {
             redisUtil.set(key, signature, TIME_DIFF_MAX);
+        }
     }
 
 }

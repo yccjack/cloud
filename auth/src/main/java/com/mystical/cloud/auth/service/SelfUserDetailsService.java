@@ -22,6 +22,7 @@ public class SelfUserDetailsService implements UserDetailsService {
     UserMapper userMapper;
     public static Map<String, String> loginMap = new ConcurrentHashMap<>(1024);
 
+    @Override
     public UserDetails loadUserByUsername(String username) {
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);

@@ -51,7 +51,7 @@ public abstract class AbstractEncrypt {
         }
         //加密字段名
         String value = annotation.value();
-        if (value.equals("")) {
+        if ("".equals(value)) {
             value = "param";
         }
         //加密分割符。
@@ -70,7 +70,7 @@ public abstract class AbstractEncrypt {
                 for (String param : parameterNames) {
                     if (value.equalsIgnoreCase(param)) {
                         Object arg = args[count];
-                        if (value.equalsIgnoreCase("param") && arg == null && versionSupport == 2) {
+                        if ("param".equalsIgnoreCase(value) && arg == null && versionSupport == 2) {
                             return joinPoint.proceed(args);
                         }
                         decrypt(args, segment, count, arg);

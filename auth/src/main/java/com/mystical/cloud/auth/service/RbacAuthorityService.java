@@ -35,7 +35,7 @@ public class RbacAuthorityService {
 
             String username = ((UserDetails) userInfo).getUsername();
             if (username.equals("admin")) {
-                QueryWrapper<LoginView> queryWrapper = new QueryWrapper();
+                QueryWrapper<LoginView> queryWrapper = new QueryWrapper<>();
                 queryWrapper.eq("username", "admin").eq("status", 1);
                 LoginView admin = loginService.getOne(queryWrapper);
                 if (admin != null) {

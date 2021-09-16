@@ -3,7 +3,7 @@
 
 ### 头部信息
 
-**所有的头部必须包括一下信息**
+**所有的头部必须包括以下信息**
 
 ```properties
 Accept-Encoding: gzip, deflate
@@ -94,6 +94,6 @@ event事件为页面操作事件，比如提交事件，则event=submit，保存
 请求地址示例： 
 ```html
 post:  
-http://localhost:8081/entrance/demo/lu/create/     
-{"event":"submit","data":{"data":"1234"}}
+http://localhost:8081/entrance/demo/la/create/     
+{"event":"submit","data":"1234"}
 ```

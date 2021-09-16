@@ -17,6 +17,7 @@ import java.io.IOException;
 @Component
 public class AjaxAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
+    @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         AjaxResponseBody responseBody = new AjaxResponseBody();
 

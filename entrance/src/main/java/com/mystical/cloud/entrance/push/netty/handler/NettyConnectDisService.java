@@ -32,7 +32,7 @@ public class NettyConnectDisService {
 
     @Autowired
     private JedisUtil jedisUtil;
-    @PostConstruct
+//    @PostConstruct
     @SuppressWarnings("all")
     public void init() {
         new Thread(() -> {

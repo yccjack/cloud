@@ -28,6 +28,8 @@ cookie:
 
 ---
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     service-url:
       defaultZone: 'http://121.4.31.143:8761/eureka/'

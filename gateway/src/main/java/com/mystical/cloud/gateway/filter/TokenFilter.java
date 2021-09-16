@@ -1,6 +1,5 @@
 package com.mystical.cloud.gateway.filter;
 
-import com.mystical.cloud.gateway.response.ResultBody;
 import com.mystical.cloud.gateway.service.AuthService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +49,14 @@ public class TokenFilter implements GlobalFilter, Ordered {
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                 return exchange.getResponse().setComplete();
             } else {
-                if (validateToken(exchange, token)) return exchange.getResponse().setComplete();
+                if (validateToken(exchange, token)) {
+                    return exchange.getResponse().setComplete();
+                }
             }
         }else {
-            if (validateToken(exchange, cookieToken)) return exchange.getResponse().setComplete();
+            if (validateToken(exchange, cookieToken)) {
+                return exchange.getResponse().setComplete();
+            }
         }
 
         return chain.filter(exchange);

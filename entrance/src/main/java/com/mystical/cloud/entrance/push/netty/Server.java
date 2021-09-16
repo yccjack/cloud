@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2020/5/28
  */
 @Slf4j
-@Component
+//@Component
 public class Server implements ApplicationRunner, ApplicationListener<ContextClosedEvent>, ApplicationContextAware {
 
     private int port = 10001;

@@ -33,15 +33,12 @@ public class AuthController {
      */
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public boolean auth(String token) {
-        log.debug("token:[{}]", token);
+        log.info("token:[{}]", token);
         String useranme = JwtTokenUtil.parseToken(token);
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", useranme);
         UserInfo userInfo = userMapper.selectOne(queryWrapper);
-        if (userInfo != null) {
-            return true;
-        }
-        return false;
+        return userInfo != null;
 
     }
 
@@ -64,7 +61,7 @@ public class AuthController {
                 return "填写错误";
             } else {
                 QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
-                queryWrapper.eq("username", username).eq("password", password);
+                queryWrapper.eq("username", username);
                 Integer integer = userMapper.selectCount(queryWrapper);
                 if (integer > 0) {
                     return "账户已存在";
@@ -73,8 +70,7 @@ public class AuthController {
                 }
             }
             if (succeed) {
-                String token = loginService.getRegisterToken(username, 0, response);
-                return token;
+                return loginService.getRegisterToken(username, 0, response);
             } else {
                 return "生成token失败，请重试";
             }
