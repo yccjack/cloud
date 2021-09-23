@@ -5,6 +5,7 @@ import com.mystical.cloud.auth.signature.annotation.SignedMapping;
 import com.mystical.cloud.auth.signature.entity.SignedParam;
 import com.mystical.cloud.auth.signature.service.BaseSignedService;
 import com.mystical.cloud.auth.signature.service.MyApplicationRunner;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.Random;
 @RestController
 @RequestMapping("/signature")
 @Slf4j
+@Api(tags = "signature")
 public class signatureController {
 
     private final BaseSignedService baseSignedService;

@@ -110,7 +110,7 @@ spring:
             - Method=POST
           filters:
             - StripPrefix=1
-            - AddResponseHeader=X-Response-Default-Foo, fws-form-service-Bar
+            - AddResponseHeader=X-Response-Default-Foo, mystical-service-Bar
         - id: mystical-stream
           uri: lb://mystical-stream
           predicates:
@@ -118,7 +118,7 @@ spring:
             - Method=POST
           filters:
             - StripPrefix=1
-            - AddResponseHeader=X-Response-Default-Foo, fws-form-service-Bar
+            - AddResponseHeader=X-Response-Default-Foo, mystical-service-Bar
         - id: auth-service
           uri: lb://auth-service
           predicates:
@@ -126,5 +126,5 @@ spring:
             - Method=POST
           filters:
             - StripPrefix=1
-            - AddResponseHeader=X-Response-Default-Foo, fws-form-service-Bar
+            - AddResponseHeader=X-Response-Default-Foo, mystical-service-Bar
   profiles: eureka

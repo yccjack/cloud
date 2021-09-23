@@ -5,6 +5,7 @@ import com.mystical.cloud.auth.bean.UserInfo;
 import com.mystical.cloud.auth.exception.EventBaseException;
 import com.mystical.cloud.auth.service.UserService;
 import com.mystical.cloud.auth.utils.JwtTokenUtil;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/user")
 @Slf4j
+@Api(tags = "user")
 public class UserInfoController {
 
     @Autowired

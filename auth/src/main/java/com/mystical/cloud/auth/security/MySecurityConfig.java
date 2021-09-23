@@ -1,5 +1,6 @@
 package com.mystical.cloud.auth.security;
 
+import com.mystical.cloud.auth.config.IgnoreUrlsProperties;
 import com.mystical.cloud.auth.security.handler.*;
 import com.mystical.cloud.auth.service.SelfUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,13 +8,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebSecurity
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     AjaxAuthenticationEntryPoint authenticationEntryPoint;
@@ -36,12 +42,27 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
+    @Autowired
+    IgnoreUrlsProperties ignoreUrlsProperties;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // 加入自定义的安全认证
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
+    // 对于获取token的rest api要允许匿名访问
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        ignoreUrlsProperties.getResources().forEach(resource -> web.ignoring().antMatchers(resource));
+        web.ignoring(). antMatchers("/swagger-ui.html")
+                .antMatchers("/webjars/**")
+                .antMatchers("/v2/**")
+                .antMatchers("/swagger-resources/**")
+                .antMatchers("/auth/*")
+                .antMatchers("/signature/*")
+                .antMatchers("/**/mq/**");
+    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 去掉 CSRF（跨域）
@@ -56,9 +77,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // 所有请求必须认证
                 .authorizeRequests()
-                // 对于获取token的rest api要允许匿名访问
-                .antMatchers("/auth/*").permitAll()
-                .antMatchers("/signature/*").permitAll()
+
                 // 允许对于网站静态资源的无授权访问
                 .antMatchers(
                         HttpMethod.GET,

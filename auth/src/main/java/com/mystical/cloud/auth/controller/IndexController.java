@@ -1,6 +1,7 @@
 package com.mystical.cloud.auth.controller;
 
 
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("index")
 @Slf4j
+@Api(tags = "主页")
 public class IndexController {
 
     @PostMapping("/")

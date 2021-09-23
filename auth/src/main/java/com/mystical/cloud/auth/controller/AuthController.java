@@ -8,6 +8,8 @@ import com.mystical.cloud.auth.mapper.UserMapper;
 
 import com.mystical.cloud.auth.service.LoginService;
 import com.mystical.cloud.auth.utils.JwtTokenUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("auth")
 @Slf4j
+@Api(tags = "用户验证")
 public class AuthController {
 
     @Autowired
@@ -32,6 +35,7 @@ public class AuthController {
      * @return
      */
     @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @ApiOperation(value = "info", notes = "info")
     public boolean auth(String token) {
         log.info("token:[{}]", token);
         String useranme = JwtTokenUtil.parseToken(token);
@@ -43,6 +47,7 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ApiOperation(value = "login", notes = "login")
     public String login(@RequestBody UserInfo userInfo, HttpServletResponse response) {
         if (loginService.login(userInfo, response)) {
             return "登录成功";
@@ -51,6 +56,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @ApiOperation(value = "register", notes = "register")
     public String register(@RequestBody UserInfo userInfo, HttpServletResponse response) {
         try {
             String username = userInfo.getUsername();

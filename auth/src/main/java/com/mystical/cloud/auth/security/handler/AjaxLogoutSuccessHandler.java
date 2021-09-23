@@ -24,6 +24,7 @@ import java.io.IOException;
 public class AjaxLogoutSuccessHandler implements LogoutSuccessHandler {
     @Autowired
     LoginService loginService;
+    @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         AjaxResponseBody responseBody = new AjaxResponseBody();
         Cookie[] cookies = httpServletRequest.getCookies();

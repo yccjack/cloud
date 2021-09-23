@@ -9,6 +9,32 @@ spring:
     url: jdbc:mysql://localhost:3306/mystical?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: '123456'
+  rabbitmq:
+    host: '121.4.31.143'
+    port: 5672
+    username: "admin"
+    password: "admin"
+    # 启动rabbitmq指定的v-host
+    virtual-host: my_vhost
+secure:
+  ignored:
+    urls: #安全路径白名单
+    - /**/auth/**
+    - /**/mq/**
+
+    resources:
+    - /static/**
+    - /img/**
+    - /swagger-ui.html
+    - /swagger-resources/**
+    - /swagger/**
+    - /v2/**
+    - /**/v2/api-docs
+    - /**/*.js
+    - /**/*.css
+    - /**/*.png
+    - /**/*.ico
+    - /webjars/springfox-swagger-ui/**
 server:
   port: 8001
 management:
