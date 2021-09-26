@@ -20,7 +20,7 @@ public class RabbitProducer {
 
     public void sendDemoQueue() {
         Date date = new Date();
-        String dateString = new SimpleDateFormat("YYYY-mm-DD hh:MM:ss").format(date);
+        String dateString = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date);
         System.out.println("[demoQueue] send msg: " + dateString);
         // 第一个参数为刚刚定义的队列名称
         this.rabbitTemplate.convertAndSend("demoQueue", dateString);
