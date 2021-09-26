@@ -36,7 +36,7 @@ secure:
     - /**/*.ico
     - /webjars/springfox-swagger-ui/**
 server:
-  port: 8001
+  port: 8002
 management:
   endpoints:
     web:
