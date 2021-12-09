@@ -26,7 +26,11 @@
 
 - [ ] 邮件系统
 
-  
+
+## 初始配置
+下载后右键cloud-master的pom文件 ，add as maven将项目加入maven中。
+> 
+每个项目都是独立的，可以单独打开，都需要进行一次add as maven才能正常使用。
 ## 整体结构
 
 ![未命名文件](https://gitee.com/MysticalYu/pic/raw/master/hexo/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png)
