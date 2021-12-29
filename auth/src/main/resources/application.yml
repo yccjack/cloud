@@ -2,20 +2,13 @@ spring:
   application:
     name: auth-service
   profiles:
-    active: default
+    active: localhost
   datasource:
     initialization-mode: always
     driverClassName: 'com.mysql.cj.jdbc.Driver'
     url: jdbc:mysql://localhost:3306/mystical?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
-    username: mystical
+    username: root
     password: '123456'
-  rabbitmq:
-    host: '121.4.31.143'
-    port: 5672
-    username: "admin"
-    password: "admin"
-    # 启动rabbitmq指定的v-host
-    virtual-host: my_vhost
 secure:
   ignored:
     urls: #安全路径白名单
@@ -36,7 +29,7 @@ secure:
     - /**/*.ico
     - /webjars/springfox-swagger-ui/**
 server:
-  port: 8002
+  port: 8001
 management:
   endpoints:
     web:

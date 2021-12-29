@@ -61,7 +61,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-resources/**")
                 .antMatchers("/auth/*")
                 .antMatchers("/signature/*")
-                .antMatchers("/**/mq/**");
+                .antMatchers("/**/mq/**")
+                .antMatchers("/users/affair");
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
