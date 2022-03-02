@@ -1,5 +1,5 @@
-package com.mystical.cloud.auth.controller;
-import com.mystical.cloud.auth.mq.RabbitProducer;
+package com.mystical.cloud.entrance.controller;
+import com.mystical.cloud.entrance.mq.RabbitProducer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

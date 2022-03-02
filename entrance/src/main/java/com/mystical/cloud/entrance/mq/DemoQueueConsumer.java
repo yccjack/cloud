@@ -1,4 +1,4 @@
-package com.mystical.cloud.auth.mq;
+package com.mystical.cloud.entrance.mq;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;

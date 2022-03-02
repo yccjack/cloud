@@ -1,4 +1,4 @@
-package com.mystical.cloud.auth.config;
+package com.mystical.cloud.entrance.config;
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
