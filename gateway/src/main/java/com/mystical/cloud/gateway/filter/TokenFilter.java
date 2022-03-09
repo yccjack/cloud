@@ -3,6 +3,7 @@ package com.mystical.cloud.gateway.filter;
 import com.mystical.cloud.gateway.service.AuthService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -26,8 +27,14 @@ public class TokenFilter implements GlobalFilter, Ordered {
     @Autowired
     AuthService authService;
 
+    @Value("${localhost.test}")
+    private boolean test;
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        if(test){
+            return chain.filter(exchange);
+        }
         String url1 = exchange.getRequest().getURI().toString();
         //放行特定的请求地址
         if (url1.indexOf("/uploadFile") > 0 || url1.indexOf("/upload") > 0 || url1.indexOf("/download") > 0 || url1.indexOf("/login") > 0 || url1.indexOf("/auth") > 0) {

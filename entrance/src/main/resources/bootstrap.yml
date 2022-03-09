@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: dev
+
+
+---
+spring:
+  profiles: prod
+  application:
+    name: entrance
+  cloud:
+    config:
+      uri: http://localhost:3301
+      label: main
+      profile: prod
+
+
+---
+spring:
+  profiles: dev
+  application:
+    name: entrance
+  cloud:
+    config:
+      uri: http://192.168.44.129:3301
+      label: main
+      profile: dev

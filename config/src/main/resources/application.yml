@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+     config:
+        server:
+          git:
+            uri: https://gitee.com/MysticalYu/config.git
+            default-label: main
+            search-paths: /
+server:
+  port: 3301
+eureka:
+  client:
+    serviceUrl:
+      register-with-eureka: true
+      fetch-registry: true
+      defaultZone: http://42.192.209.81:8761/eureka/
+  instance:
+    preferIpAddress: true

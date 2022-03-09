@@ -1,0 +1,39 @@
+spring:
+  profiles:
+    active: dev
+
+
+---
+spring:
+  profiles: prod
+  application:
+    name: gateway
+  cloud:
+    config:
+      uri: http://localhost:3301
+      label: main
+      profile: prod
+
+
+---
+spring:
+  profiles: dev
+  application:
+    name: gateway
+  cloud:
+    config:
+      uri: http://192.168.44.129:3301
+      label: main
+      profile: dev
+
+
+---
+spring:
+  profiles: localhost
+  application:
+    name: gateway
+  cloud:
+    config:
+      uri: http://localhost:3301
+      label: main
+      profile: dev
