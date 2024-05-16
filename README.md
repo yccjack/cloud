@@ -33,11 +33,11 @@
 每个项目都是独立的，可以单独打开，都需要进行一次add as maven才能正常使用。
 ## 整体结构
 
-![未命名文件](https://gitee.com/MysticalYu/pic/raw/master/hexo/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png)
+![未命名文件](images/zhengti.png)
 
 ## 入口逻辑图
 
-![入口架构图 (1)](https://gitee.com/MysticalYu/pic/raw/master/hexo/%E5%85%A5%E5%8F%A3%E6%9E%B6%E6%9E%84%E5%9B%BE%20(1).png)
+![入口架构图 (1)](images/logic.png)
 
 
 
