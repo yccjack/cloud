@@ -60,7 +60,7 @@ public abstract class SignedService {
         Object[] args = joinPoint.getArgs();
         boolean paramHasSignedEntity = false;
         //获取SignedEntity 的数据
-        if (args != null&& args.length>0) {
+        if (args != null) {
             for (Object obj : args) {
                 if (obj==null){
                     continue;
