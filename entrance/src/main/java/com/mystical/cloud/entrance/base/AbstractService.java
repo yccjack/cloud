@@ -3,10 +3,9 @@ package com.mystical.cloud.entrance.base;
 import com.mystical.cloud.entrance.bean.BaseDto;
 import com.mystical.cloud.entrance.emun.CommonEnum;
 import com.mystical.cloud.entrance.exception.EventBaseException;
+import jdk.internal.reflect.CallerSensitive;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import sun.reflect.CallerSensitive;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -43,13 +42,12 @@ public abstract class AbstractService implements BaseService<BaseDto> {
         try {
             invoke = getObject(data, operation);
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException e) {
-            e.printStackTrace();
+
             String format = String.format("未设置此方法：%s,请检查是否输错，或者联系管理员设置%s方法", operation, operation);
-            log.error(format);
-            e.printStackTrace();
+            log.error("{}",format,e);
             throw new EventBaseException(CommonEnum.METHOD_LOST.getResultCode(), format);
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            log.error("",e);
             Throwable cause = e.getCause();
             //获取反射调用方法抛出的自定义异常
             if (cause instanceof EventBaseException) {
@@ -97,7 +95,7 @@ public abstract class AbstractService implements BaseService<BaseDto> {
         Method method = this.getClass().getMethod(operation, data.getClass());
         method.setAccessible(true);
         invoke = method.invoke(this, data);
-        System.out.println(invoke);
+        log.debug("{}",invoke);
 
         return invoke;
     }
